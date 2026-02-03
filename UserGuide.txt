@@ -1,1 +1,0 @@
-Download the Predictor.py, Final_MLPmodel.pkl, and CelluloseSolubilityPredictor.py files and ensure the required packages are installed in your Python environment. Run CelluloseSolubilityPredictor.py and input the SMILES of cations and anions along with the temperature to obtain the predicted solubility values.
