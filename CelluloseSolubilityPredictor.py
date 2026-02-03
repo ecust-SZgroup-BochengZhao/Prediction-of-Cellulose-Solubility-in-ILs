@@ -1,13 +1,30 @@
 from Predictor import CelluloseSolubilityPredictor
 
-# 1)  Load Model
-predictor = CelluloseSolubilityPredictor("Final_MLPmodel.pkl")
+def main():
+    # 1) Load Model
+    predictor = CelluloseSolubilityPredictor("Final_MLPmodel.pkl")
 
-# 2) predict: input cation SMILES, anion SMILE, temp(℃)
-y_mean = predictor.predict(
-    cation_smiles="CN1C=C[N+](=C1)C",
-    anion_smiles="CC(=O)[O-]",
-    temp_c=80.0
-)
+    # 2) Manual input
+    cation_smiles = input("Enter cation SMILES: ").strip()
+    anion_smiles  = input("Enter anion SMILES : ").strip()
+    temp_str      = input("Enter temperature (°C): ").strip()
 
-print("5-fold mean prediction:", y_mean)
+    if not cation_smiles or not anion_smiles:
+        raise ValueError("Cation/anion SMILES cannot be empty.")
+
+    try:
+        temp_c = float(temp_str)
+    except ValueError:
+        raise ValueError(f"Temperature must be a number, got: {temp_str!r}")
+
+    # 3) Predict
+    y_mean = predictor.predict(
+        cation_smiles=cation_smiles,
+        anion_smiles=anion_smiles,
+        temp_c=temp_c
+    )
+
+    print("5-fold mean prediction:", y_mean)
+
+if __name__ == "__main__":
+    main()
